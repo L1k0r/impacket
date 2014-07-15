@@ -23,10 +23,16 @@ from impacket.smbconnection import *
 import string
 
 class ServiceInstall():
-    def __init__(self, SMBObject, exeFile):
+    def __init__(self, SMBObject, exeFile, serviceName=None, binaryServiceName=None):
         self._rpctransport = 0
-        self.__service_name = ''.join([random.choice(string.letters) for i in range(4)])
-        self.__binary_service_name = ''.join([random.choice(string.letters) for i in range(8)]) + '.exe'
+        if not serviceName:
+            self.__service_name = ''.join([random.choice(string.letters) for i in range(4)])
+        else:
+            self.__service_name = serviceName
+        if not binaryServiceName:
+            self.__binary_service_name = ''.join([random.choice(string.letters) for i in range(8)]) + '.exe'
+        else:
+            self.__binary_service_name = binaryServiceName
         self.__exeFile = exeFile
 
         # We might receive two different types of objects, always end up
